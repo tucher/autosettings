@@ -2,7 +2,6 @@ package autosettings
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/kardianos/osext"
 	"io/ioutil"
 	"log"
