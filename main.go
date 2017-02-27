@@ -19,16 +19,14 @@ func ReadConfig(tmpl Defaultable) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	jsonBlob, err := ioutil.ReadFile(folderPath + "/settings.json")
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	d := tmpl.Default()
-	if err := json.Unmarshal(jsonBlob, d); err != nil {
-		log.Fatal(err)
+	jsonBlob, err := ioutil.ReadFile(folderPath + "/settings.json")
+	if err == nil {
+		if err := json.Unmarshal(jsonBlob, d); err != nil {
+			log.Fatal(err)
+		}
 	}
+
 	cloneValue(d, tmpl)
 
 	v := reflect.ValueOf(tmpl).Elem()
