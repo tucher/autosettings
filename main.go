@@ -3,11 +3,12 @@ package autosettings
 import (
 	"encoding/json"
 	"flag"
-	"github.com/kardianos/osext"
+	"os"
 	"io/ioutil"
 	"log"
 	"reflect"
 	"strings"
+    "path"
 )
 
 type Defaultable interface {
@@ -15,10 +16,11 @@ type Defaultable interface {
 }
 
 func ReadConfig(tmpl Defaultable) {
-	folderPath, err := osext.ExecutableFolder()
+	exePath, err := os.Executable()
 	if err != nil {
 		log.Fatal(err)
 	}
+    folderPath, _ := path.Split(exePath)
 	d := tmpl.Default()
 	jsonBlob, err := ioutil.ReadFile(folderPath + "/settings.json")
 	if err == nil {
