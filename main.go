@@ -22,7 +22,7 @@ func ReadConfig(tmpl Defaultable) {
 	}
     folderPath, _ := path.Split(exePath)
 	d := tmpl.Default()
-	jsonBlob, err := ioutil.ReadFile(folderPath + "/settings.json")
+	jsonBlob, err := ioutil.ReadFile(path.Join(folderPath, "settings.json"))
 	if err == nil {
 		if err := json.Unmarshal(jsonBlob, d); err != nil {
 			log.Fatal(err)
